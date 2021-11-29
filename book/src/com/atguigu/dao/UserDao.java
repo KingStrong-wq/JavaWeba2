@@ -6,6 +6,9 @@ import com.atguigu.pojo.User;
  * 使用对数据库的基础操作要如何操作 User 信息
  */
 public interface UserDao {
+
+
+
     /**
      * 根据用户名查询用户信息
      * @param username
