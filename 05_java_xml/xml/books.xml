@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<books>
+    <book sn="SN1231231231">
+        <name>才华宝典</name>
+        <author>飞哥</author>
+        <price>9.9</price>
+    </book>
+    <book sn="SN1231231232">
+        <name>才华宝典2</name>
+        <author>飞哥2</author>
+        <price>92.9</price>
+    </book>
+</books>
