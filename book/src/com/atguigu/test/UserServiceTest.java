@@ -19,9 +19,11 @@ public class UserServiceTest {
 
     @Test
     public void login() {
+        System.out.println(userService.login(new User(null,"admin","admin","admin@qq.com")));
     }
 
     @Test
     public void existsUsername() {
+        System.out.println(userService.existsUsername("admin"));
     }
 }
