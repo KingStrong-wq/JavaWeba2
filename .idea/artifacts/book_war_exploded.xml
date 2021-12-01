@@ -1,8 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="book">
-    <output-path>$PROJECT_DIR$/out/artifacts/book</output-path>
+  <artifact type="exploded-war" name="book:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/book_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="book/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="book" />
@@ -12,6 +11,8 @@
           <element id="library" level="module" name="JUnit4" module-name="book" />
         </element>
       </element>
+      <element id="library" level="module" name="JUnit5.7.0" module-name="book" />
+      <element id="javaee-facet-resources" facet="book/web/Web" />
     </root>
   </artifact>
 </component>
