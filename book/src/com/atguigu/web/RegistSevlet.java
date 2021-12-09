@@ -34,15 +34,15 @@ public class RegistSevlet extends HttpServlet {
             // 检查用户名是否可用
             if (userService.existsUsername(username)) {
                 System.out.println("用户名["+ username +"]已存在");
-                req.getRequestDispatcher("/pages/user/regist.html").forward(req,resp);
+                req.getRequestDispatcher("/pages/user/regist.jsp").forward(req,resp);
             } else {
                 userService.registUser(new User(null,username,password,email));
-                req.getRequestDispatcher("/pages/user/regist_success.html").forward(req,resp);
+                req.getRequestDispatcher("/pages/user/regist_success.jsp").forward(req,resp);
             }
         } else {
             // 路径： 通过项目路径book引导项目 ，通过注册按钮 发送post请求给servlet，所以工作路径其实还是项目路径下
             System.out.println("验证码错误");
-            req.getRequestDispatcher("/pages/user/regist.html").forward(req,resp);
+            req.getRequestDispatcher("/pages/user/regist.jsp").forward(req,resp);
         }
 
 
