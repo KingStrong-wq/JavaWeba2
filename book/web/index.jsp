@@ -10,7 +10,7 @@
 <body>
 	
 	<div id="header">
-			<img class="logo_img" alt="" src="static/img/logo.gif" >
+			<img class="logo_img" alt="" src="static/img/logo.gif" width="400" height="300">
 			<span class="wel_word">网上书城</span>
 			<div>
 				<a href="pages/user/login.jsp">登录</a> |

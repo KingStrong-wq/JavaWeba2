@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 优化后已经弃用此类
+ */
 public class LoginServlet extends HttpServlet {
 
     private UserService userService = new UserServiceImpl();
@@ -25,6 +28,12 @@ public class LoginServlet extends HttpServlet {
 
         // 如果等于null 说明登录失败
         if (loginUser == null) {
+
+            // 把错误信息，和回显的表单信息，保存在request域中
+            req.setAttribute("msg","用户名或密码错误！");
+            req.setAttribute("username",username);
+
+
             //跳回登录页面
             System.out.println("用户名或密码错误!");
             req.getRequestDispatcher("/pages/user/login.jsp").forward(req,resp);
