@@ -3,12 +3,14 @@ package com.atguigu.web;
 import com.atguigu.pojo.User;
 import com.atguigu.service.UserService;
 import com.atguigu.service.impl.UserServiceImpl;
+import com.atguigu.test.UserServletTest;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 /**
  * @ClassName UserServlet
@@ -97,11 +99,12 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-
-        if ("login".equals(action)) {
-            login(req, resp);
-        } else if ("regist".equals(action)) {
-            regist(req, resp);
+        try {
+            Method method = this.getClass().getDeclaredMethod(action,HttpServletRequest.class,HttpServletResponse.class);
+            method.invoke(this,req,resp);
+            System.out.println(method);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
