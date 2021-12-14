@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * 优化后已经弃用此类
  */
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends BaseServlet {
 
     private UserService userService = new UserServiceImpl();
 

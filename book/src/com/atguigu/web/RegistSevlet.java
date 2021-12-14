@@ -18,7 +18,7 @@ import java.io.IOException;
  * @Date 2021/11/30 20:24
  * @Version 1.0
  */
-public class RegistSevlet extends HttpServlet {
+public class RegistSevlet extends BaseServlet {
 
     private UserService userService = new UserServiceImpl();
 

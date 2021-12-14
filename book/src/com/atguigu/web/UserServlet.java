@@ -4,6 +4,7 @@ import com.atguigu.pojo.User;
 import com.atguigu.service.UserService;
 import com.atguigu.service.impl.UserServiceImpl;
 import com.atguigu.test.UserServletTest;
+import com.atguigu.utils.WebUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ import java.lang.reflect.Method;
  * @Date 2021/12/11 21:24
  * @Version 1.0
  */
-public class UserServlet extends HttpServlet {
+public class UserServlet extends BaseServlet {
     private UserService userService = new UserServiceImpl();
 
     /**
@@ -39,7 +40,6 @@ public class UserServlet extends HttpServlet {
 
         // 如果等于null 说明登录失败
         if (loginUser == null) {
-
             // 把错误信息，和回显的表单信息，保存在request域中
             req.setAttribute("msg","用户名或密码错误！");
             req.setAttribute("username",username);
@@ -69,6 +69,8 @@ public class UserServlet extends HttpServlet {
         String email = req.getParameter("email");
         String code = req.getParameter("code");
 
+        User user = WebUtils.copyParamToBean(req.getParameterMap(),new User());
+
         // 2、检查 验证码是否正确 === 写死，要求验证码为abcde
         if ("abcde".equalsIgnoreCase(code)) {
             // 检查用户名是否可用
@@ -96,15 +98,5 @@ public class UserServlet extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        try {
-            Method method = this.getClass().getDeclaredMethod(action,HttpServletRequest.class,HttpServletResponse.class);
-            method.invoke(this,req,resp);
-            System.out.println(method);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 }
