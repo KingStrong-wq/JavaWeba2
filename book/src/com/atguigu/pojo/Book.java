@@ -21,7 +21,7 @@ public class Book {
         this.price = price;
         this.sales = sales;
         this.stock = stock;
-        if (imgPath != null || imgPath != "") {
+        if (imgPath != null && !"".equals(imgPath)) {
             this.imgPath = imgPath;
         }
     }
@@ -92,6 +92,8 @@ public class Book {
     }
 
     public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
+        if (imgPath != null && !"".equals(imgPath)) {
+            this.imgPath = imgPath;
+        }
     }
 }
