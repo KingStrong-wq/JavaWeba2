@@ -35,11 +35,12 @@ public class BookDaoImpl extends BaseDao implements BookDao {
     @Override
     public Book queryBookById(Integer id) {
         String sql = "select `id`,`name`,`author`,`price`,`sales`,`stock`,`img_path` as imgpath from t_book where id=?";
-        return null;
+        return queryForOne(Book.class,sql,id);
     }
 
     @Override
     public List<Book> queryBooks() {
-        return null;
+        String sql = "select `id`,`name`,`author`,`price`,`sales`,`stock`,`img_path` as imgpath from t_book";
+        return queryForList(Book.class,sql);
     }
 }
