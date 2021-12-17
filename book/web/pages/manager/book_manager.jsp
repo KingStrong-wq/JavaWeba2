@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -6,6 +7,23 @@
 <title>图书管理</title>
 <%-- 静态包含 base标签，css样式，jQuery文件 --%>
 <%@include file="/pages/common/head.jsp"%>
+<script type="text/javascript">
+	$(function () {
+		// 给删除的a标签绑定单击事件，用于删除的确认提示操作
+		$("a.deleteclass").click(
+				function () {
+
+					/**
+					 *  confirm 确认提示框函数
+					 *  参数是提示内容
+					 *  它有两个按钮 确认和取消
+					 */
+					return confirm("你确定要删除["+ $(this).parent().parent().find("td:first").text() +"]?");
+				}
+		)
+	})
+</script>
+
 </head>
 <body>
 	
@@ -25,46 +43,20 @@
 				<td>销量</td>
 				<td>库存</td>
 				<td colspan="2">操作</td>
-			</tr>		
-			<tr>
-				<td>时间简史</td>
-				<td>20.00</td>
-				<td>霍金</td>
-				<td>200</td>
-				<td>400</td>
-				<td><a href="pages/manager/book_edit.jsp">修改</a></td>
-				<td><a href="#">删除</a></td>
-			</tr>	
-			
-			<tr>
-				<td>时间简史</td>
-				<td>20.00</td>
-				<td>霍金</td>
-				<td>200</td>
-				<td>400</td>
-				<td><a href="pages/manager/book_edit.jsp">修改</a></td>
-				<td><a href="#">删除</a></td>
-			</tr>	
-			
-			<tr>
-				<td>时间简史</td>
-				<td>20.00</td>
-				<td>霍金</td>
-				<td>200</td>
-				<td>400</td>
-				<td><a href="pages/manager/book_edit.jsp">修改</a></td>
-				<td><a href="#">删除</a></td>
-			</tr>	
-			
-			<tr>
-				<td>时间简史</td>
-				<td>20.00</td>
-				<td>霍金</td>
-				<td>200</td>
-				<td>400</td>
-				<td><a href="pages/manager/book_edit.jsp">修改</a></td>
-				<td><a href="#">删除</a></td>
-			</tr>	
+			</tr>
+
+			<c:forEach items="${requestScope.books}" var="book">
+				<tr>
+					<td>${book.name}</td>
+					<td>${book.price}</td>
+					<td>${book.author}</td>
+					<td>${book.sales}</td>
+					<td>${book.stock}</td>
+					<td><a href="manager/bookServlet?action=getBook&id=${book.id}">修改</a></td>
+					<td><a class="deleteclass" href="manager/bookServlet?action=delete&id=${book.id}">删除</a></td>
+				</tr>
+			</c:forEach>
+
 			
 			<tr>
 				<td></td>
