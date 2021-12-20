@@ -4,13 +4,11 @@ import com.atguigu.pojo.Book;
 import com.atguigu.service.BookService;
 import com.atguigu.service.impl.BookServiceImpl;
 import com.atguigu.utils.WebUtils;
-import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -65,7 +63,12 @@ public class BookServlet extends BaseServlet {
     }
 
     protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        // 1、获取请求的参数==封装成为Book对象
+        Book book = WebUtils.copyParamToBean(req.getParameterMap(), new Book());
+        // 2、调用BookService.updateBook(book) 修改图书
+        bookService.updateBook(book);
+        // 3、重定向回图书列表管理页面
+        resp.sendRedirect(req.getContextPath() + "/manager/bookServlet?action=list");
     }
 
     protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

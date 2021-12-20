@@ -32,7 +32,8 @@
 		
 		<div id="main">
 			<form action="manager/bookServlet" method="get">
-				<input type="hidden" name="action" value="add">
+				<input type="hidden" name="action" value="${param.method}">
+				<input type="hidden" name="id" value="${requestScope.book.id}">
 				<table>
 					<tr>
 						<td>名称</td>
