@@ -46,7 +46,8 @@ public class BookServiceImpl implements BookService {
     @Override
     public Page<Book> page(int pageNo, int pageSize) {
         Page<Book> page = new Page<>();
-        page.setPageNo(pageNo);
+
+
         page.setPageSize(pageSize);
         // 求总记录数
         Integer pageTotalCount = bookDao.queryForPageTotalCount();
@@ -55,6 +56,9 @@ public class BookServiceImpl implements BookService {
         // 求总页码
         Integer pageTotal = (pageTotalCount - 1) / pageSize + 1;
         page.setPageTotal(pageTotal);
+
+        // 数据边界的有效检查
+        page.setPageNo(pageNo);
 
         // 求当前页数据的开始索引
         int begin = (page.getPageNo() - 1) * pageSize;

@@ -70,15 +70,36 @@
 		</table>
 
 		<div id="page_nav">
-			<a href="#">首页</a>
-			<a href="#">上一页</a>
+			<%--大于首页才显示---%>
+			<c:if test="${requestScope.page.pageNo > 1}">
+				<a href="manager/bookServlet?action=page&pageNo=1">首页</a>
+				<a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageNo - 1}">上一页</a>
+			</c:if>
+
 			<a href="#">3</a>
 			【${requestScope.page.pageNo}】
 			<a href="#">5</a>
-			<a href="#">下一页</a>
-			<a href="#">末页</a>
-			共${requestScope.page.pageTotal}页，${requestScope.page.pageTotalCount}条记录 到第<input value="4" name="pn" id="pn_input"/>页
-			<input type="button" value="确定">
+			<c:if test="${requestScope.page.pageNo < requestScope.page.pageTotal}">
+				<a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageNo + 1}">下一页</a>
+				<a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageTotal}">末页</a>
+			</c:if>
+
+			共${requestScope.page.pageTotal}页，${requestScope.page.pageTotalCount}条记录
+				到第<input value="${param.pageNo}" name="pn" id="pn_input"/>页
+
+			<input id="searchPageBtn" type="button" value="确定">
+			<script type="text/javascript">
+				$(function () {
+					// 跳到指定的页码
+					$("#searchPageBtn").click(function () {
+						var pageNo = $("#pn_input").val();
+						// javaScript 语言中提供了一个location地址栏对象
+						// 它有一个属性叫href，它可以获取了浏览器地址栏中的地址
+						// href 属性可读、可写
+						location.href = "${pageScope.basePath}manager/bookServlet?action=page&pageNo="+ pageNo;
+					})
+				})
+			</script>
 		</div>
 
 	</div>

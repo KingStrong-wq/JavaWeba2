@@ -38,6 +38,12 @@ public class Page<T> {
     }
 
     public void setPageNo(Integer pageNo) {
+        if (pageNo < 1) {
+            pageNo = 1;
+        }
+        if (pageNo > pageTotal) {
+            pageNo = pageTotal;
+        }
         this.pageNo = pageNo;
     }
 
