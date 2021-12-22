@@ -91,7 +91,38 @@
 				</c:when>
 				<%--情况2：总页码大于5的情况--%>
 				<c:when test="${requestScope.page.pageTotal > 5}">
-
+					<c:choose>
+						<c:when test="${requestScope.page.pageNo <= 3}">
+							<c:forEach begin="1" end="5" var="i">
+								<c:if test="${i == requestScope.page.pageNo}">
+									【${i}】
+								</c:if>
+								<c:if test="${i != requestScope.page.pageNo}">
+									<a href="manager/bookServlet?action=page&pageNo=${i}">${i}</a>
+								</c:if>
+							</c:forEach>
+						</c:when>
+						<c:when test="${requestScope.page.pageNo >= requestScope.page.pageTotal - 3}">
+							<c:forEach begin="${requestScope.page.pageTotal - 4}" end="${requestScope.page.pageTotal}" var="i">
+								<c:if test="${i == requestScope.page.pageNo}">
+									【${i}】
+								</c:if>
+								<c:if test="${i != requestScope.page.pageNo}">
+									<a href="manager/bookServlet?action=page&pageNo=${i}">${i}</a>
+								</c:if>
+							</c:forEach>
+						</c:when>
+						<:c:otherwise>
+							<c:forEach begin="${requestScope.page.pageNo - 2}" end="${requestScope.page.pageNo + 2}" var="i">
+								<c:if test="${i == requestScope.page.pageNo}">
+									【${i}】
+								</c:if>
+								<c:if test="${i != requestScope.page.pageNo}">
+									<a href="manager/bookServlet?action=page&pageNo=${i}">${i}</a>
+								</c:if>
+							</c:forEach>
+						</:c:otherwise>
+					</c:choose>
 				</c:when>
 			</c:choose>
 
