@@ -76,9 +76,29 @@
 				<a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageNo - 1}">上一页</a>
 			</c:if>
 
-			<a href="#">3</a>
-			【${requestScope.page.pageNo}】
-			<a href="#">5</a>
+			<%--页码输出的开始--%>
+				<%--情况1：如何总页码小于等于5的情况，页码的范围是：1-总页码--%>
+			<c:choose>
+				<c:when test="${requestScope.page.pageTotal <= 5}">
+					<c:forEach begin="1" end="${requestScope.page.pageTotal}" var="i">
+						<c:if test="${i == requestScope.page.pageNo}">
+							【${i}】
+						</c:if>
+						<c:if test="${i != requestScope.page.pageNo}">
+							<a href="manager/bookServlet?action=page&pageNo=${i}">${i}</a>
+						</c:if>
+					</c:forEach>
+				</c:when>
+				<%--情况2：总页码大于5的情况--%>
+				<c:when test="${requestScope.page.pageTotal > 5}">
+
+				</c:when>
+			</c:choose>
+
+
+<%--			<a href="#">3</a>--%>
+<%--			【${requestScope.page.pageNo}】--%>
+<%--			<a href="#">5</a>--%>
 			<c:if test="${requestScope.page.pageNo < requestScope.page.pageTotal}">
 				<a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageNo + 1}">下一页</a>
 				<a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageTotal}">末页</a>
