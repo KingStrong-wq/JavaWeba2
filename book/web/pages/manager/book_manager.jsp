@@ -12,7 +12,6 @@
 		// 给删除的a标签绑定单击事件，用于删除的确认提示操作
 		$("a.deleteclass").click(
 				function () {
-
 					/**
 					 *  confirm 确认提示框函数
 					 *  参数是提示内容
@@ -52,11 +51,10 @@
 					<td>${book.author}</td>
 					<td>${book.sales}</td>
 					<td>${book.stock}</td>
-					<td><a href="manager/bookServlet?action=getBook&id=${book.id}&method=update">修改</a></td>
-					<td><a class="deleteclass" href="manager/bookServlet?action=delete&id=${book.id}">删除</a></td>
+					<td><a href="manager/bookServlet?action=getBook&id=${book.id}&method=update&pageNo=${requestScope.page.pageNo}">修改</a></td>
+					<td><a class="deleteclass" href="manager/bookServlet?action=delete&id=${book.id}&pageNo=${requestScope.page.pageNo}">删除</a></td>
 				</tr>
 			</c:forEach>
-
 			
 			<tr>
 				<td></td>
@@ -65,94 +63,14 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td><a href="pages/manager/book_edit.jsp?method=add">添加图书</a></td>
+				<td><a href="pages/manager/book_edit.jsp?method=add&pageNo=${requestScope.page.pageTotal}">添加图书</a></td>
 			</tr>	
 		</table>
 
-		<div id="page_nav">
-			<%--大于首页才显示---%>
-			<c:if test="${requestScope.page.pageNo > 1}">
-				<a href="manager/bookServlet?action=page&pageNo=1">首页</a>
-				<a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageNo - 1}">上一页</a>
-			</c:if>
 
-			<%--页码输出的开始--%>
-				<%--情况1：如何总页码小于等于5的情况，页码的范围是：1-总页码--%>
-			<c:choose>
-				<c:when test="${requestScope.page.pageTotal <= 5}">
-					<c:forEach begin="1" end="${requestScope.page.pageTotal}" var="i">
-						<c:if test="${i == requestScope.page.pageNo}">
-							【${i}】
-						</c:if>
-						<c:if test="${i != requestScope.page.pageNo}">
-							<a href="manager/bookServlet?action=page&pageNo=${i}">${i}</a>
-						</c:if>
-					</c:forEach>
-				</c:when>
-				<%--情况2：总页码大于5的情况--%>
-				<c:when test="${requestScope.page.pageTotal > 5}">
-					<c:choose>
-						<c:when test="${requestScope.page.pageNo <= 3}">
-							<c:forEach begin="1" end="5" var="i">
-								<c:if test="${i == requestScope.page.pageNo}">
-									【${i}】
-								</c:if>
-								<c:if test="${i != requestScope.page.pageNo}">
-									<a href="manager/bookServlet?action=page&pageNo=${i}">${i}</a>
-								</c:if>
-							</c:forEach>
-						</c:when>
-						<c:when test="${requestScope.page.pageNo >= requestScope.page.pageTotal - 3}">
-							<c:forEach begin="${requestScope.page.pageTotal - 4}" end="${requestScope.page.pageTotal}" var="i">
-								<c:if test="${i == requestScope.page.pageNo}">
-									【${i}】
-								</c:if>
-								<c:if test="${i != requestScope.page.pageNo}">
-									<a href="manager/bookServlet?action=page&pageNo=${i}">${i}</a>
-								</c:if>
-							</c:forEach>
-						</c:when>
-						<:c:otherwise>
-							<c:forEach begin="${requestScope.page.pageNo - 2}" end="${requestScope.page.pageNo + 2}" var="i">
-								<c:if test="${i == requestScope.page.pageNo}">
-									【${i}】
-								</c:if>
-								<c:if test="${i != requestScope.page.pageNo}">
-									<a href="manager/bookServlet?action=page&pageNo=${i}">${i}</a>
-								</c:if>
-							</c:forEach>
-						</:c:otherwise>
-					</c:choose>
-				</c:when>
-			</c:choose>
-
-
-<%--			<a href="#">3</a>--%>
-<%--			【${requestScope.page.pageNo}】--%>
-<%--			<a href="#">5</a>--%>
-			<c:if test="${requestScope.page.pageNo < requestScope.page.pageTotal}">
-				<a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageNo + 1}">下一页</a>
-				<a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageTotal}">末页</a>
-			</c:if>
-
-			共${requestScope.page.pageTotal}页，${requestScope.page.pageTotalCount}条记录
-				到第<input value="${param.pageNo}" name="pn" id="pn_input"/>页
-
-			<input id="searchPageBtn" type="button" value="确定">
-			<script type="text/javascript">
-				$(function () {
-					// 跳到指定的页码
-					$("#searchPageBtn").click(function () {
-						var pageNo = $("#pn_input").val();
-						// javaScript 语言中提供了一个location地址栏对象
-						// 它有一个属性叫href，它可以获取了浏览器地址栏中的地址
-						// href 属性可读、可写
-						location.href = "${pageScope.basePath}manager/bookServlet?action=page&pageNo="+ pageNo;
-					})
-				})
-			</script>
-		</div>
-
+		<%--	静态包含分页条	--%>
+		<%@include file="/pages/common/page_nav.jsp"%>
+		
 	</div>
 
 	<%-- 静态包含 页脚内容 --%>

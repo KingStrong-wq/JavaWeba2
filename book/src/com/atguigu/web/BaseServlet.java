@@ -13,7 +13,7 @@ public abstract class BaseServlet extends HttpServlet {
         try {
             Method method = this.getClass().getDeclaredMethod(action,HttpServletRequest.class,HttpServletResponse.class);
             method.invoke(this,req,resp);
-            System.out.println(method);
+//            System.out.println(method);
         } catch (Exception e) {
             e.printStackTrace();
         }
