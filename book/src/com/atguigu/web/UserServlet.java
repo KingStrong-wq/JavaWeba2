@@ -48,6 +48,7 @@ public class UserServlet extends BaseServlet {
         } else {
             // 登录成功
             System.out.println("登录成功");
+            req.getSession().setAttribute("user",loginUser);
             req.getRequestDispatcher("/pages/user/login_success.jsp").forward(req,resp);
         }
     }
