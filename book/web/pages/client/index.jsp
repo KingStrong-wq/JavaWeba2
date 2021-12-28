@@ -18,7 +18,6 @@
 				<c:if test="${empty sessionScope.user}">
 					<a href="pages/user/login.jsp">登录</a> |
 					<a href="pages/user/regist.jsp">注册</a> &nbsp;&nbsp;
-
 				</c:if>
 				<%--如果已经登录，则显示登录成功后的用户信息--%>
 				<c:if test="${not empty sessionScope.user}">
@@ -28,7 +27,6 @@
 				</c:if>
 				<a href="pages/cart/cart.jsp">购物车</a>
 				<a href="pages/manager/manager.jsp">后台管理</a>
-
 			</div>
 	</div>
 	<div id="main">
