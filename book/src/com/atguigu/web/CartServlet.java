@@ -23,6 +23,7 @@ public class CartServlet extends BaseServlet {
 
     private BookService bookService = new BookServiceImpl();
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
@@ -47,11 +48,18 @@ public class CartServlet extends BaseServlet {
         // 把图书信息转换为CartItem商品项
         CartItem cartItem = new CartItem(book.getId(),book.getName(),1,book.getPrice(),book.getPrice());
         // 调用Cart.addItem(CartItem);添加商品项
-        Cart cart = new Cart();
+        Cart cart = (Cart)req.getSession().getAttribute("cart");
+        if(cart == null) {
+            cart = new Cart();
+            req.getSession().setAttribute("cart",cart);
+        }
         cart.addItem(cartItem);
+
         System.out.println(cart);
-        // 重定向回商品列表页面
-        resp.sendRedirect(req.getContextPath() );
+
+
+        // 重定向回原来商品所在的地址页面
+        resp.sendRedirect(req.getHeader("Referer"));
 
     }
 }
