@@ -15,6 +15,20 @@
 			<span class="wel_word">购物车</span>
 			<%-- 静态包含，登录成功之后的菜单 --%>
 			<%@ include file="/pages/common/login_success_menu.jsp"%>
+			<script type="text/javascript">
+				$(function (){
+					// 给删除绑定单击事件
+					$("a.deleteItem").click(function (){
+						return confirm("你确定要删除["+$(this).parent().parent().find("td:first").text()+"]吗?")
+					})
+
+					//
+					$("#clearCart").click(function (){
+						return confirm("你确定要清空购物车吗?")
+					})
+				})
+
+			</script>
 	</div>
 	
 	<div id="main">
@@ -31,10 +45,10 @@
 				<c:forEach items="${sessionScope.cart.items}" var="cartItem">
 					<tr>
 						<td>${cartItem.value.name}</td>
-						<td>${cartItem.value.count}</td>
+						<td><input style="width: 80px" type="text" value="${cartItem.value.count}"></td>
 						<td>${cartItem.value.price}</td>
 						<td>${cartItem.value.totalPrice}</td>
-						<td><a href="#">删除</a></td>
+						<td><a class="deleteItem" href="cartServlet?action=deleteItem&id=${cartItem.value.id}">删除</a></td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -52,7 +66,7 @@
 			<div class="cart_info">
 				<span class="cart_span">购物车中共有<span class="b_count">${sessionScope.cart.totalCount}</span>件商品</span>
 				<span class="cart_span">总金额<span class="b_price">${sessionScope.cart.totalPrice}</span>元</span>
-				<span class="cart_span"><a href="#">清空购物车</a></span>
+				<span class="cart_span"><a id="clearCart" href="cartServlet?action=clear">清空购物车</a></span>
 				<span class="cart_span"><a href="pages/cart/checkout.jsp">去结账</a></span>
 			</div>
 		</c:if>

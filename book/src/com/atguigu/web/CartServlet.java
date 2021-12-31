@@ -30,6 +30,46 @@ public class CartServlet extends BaseServlet {
     }
 
     /**
+     * 清空购物车
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void clear(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 获取购物车对象
+        Cart cart = (Cart)req.getSession().getAttribute("cart");
+        if (cart != null) {
+            cart.clear();
+            // 重定向回原来购物车展示页面
+            resp.sendRedirect(req.getHeader("Referer"));
+        }
+
+
+    }
+
+
+    /**
+     * 删除商品项
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void deleteItem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 获取商品编号
+        int id = WebUtils.parseInt(req.getParameter("id"),0);
+        // 获取购物车对象
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+        // 删除商品项
+        cart.deleteItem(id);
+        // 重定向回原来购物车展示页面
+        resp.sendRedirect(req.getHeader("Referer"));
+
+    }
+
+
+    /**
      * 加入购物车
      * @param req
      * @param resp
